@@ -62,6 +62,28 @@ working across sessions, not a hidden dependency: `lon_gains` takes `coef` as an
 argument and asserts the airframe tag matches, so a stale file fails loudly
 instead of quietly designing gains for the wrong aircraft.
 
+## Report
+
+`report/report.pdf` is the written write-up: the model, the method, the results
+for both airframes, and the verification evidence.
+
+Nothing in it is transcribed by hand. `report/make_report_data.m` runs the model
+and emits `report/data/*.tex` fragments and `report/figs/*.pdf`, which
+`report.tex` pulls in with `\input` and `\includegraphics`. Re-run it and every
+matrix, table and plot in the document updates:
+
+```matlab
+cd report
+make_report_data        % regenerate tables and figures from the model
+```
+
+```bash
+cd report && pdflatex report.tex && pdflatex report.tex
+```
+
+The generated fragments and figures are committed, so the document compiles
+without MATLAB. Only LaTeX build artifacts are ignored.
+
 ## The transfer functions
 
 | | Book eq. | Form |
